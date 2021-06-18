@@ -8,14 +8,19 @@ const routes = [
     component: Home,
   },
   {
-    path: "/saved",
-    name: "Saved",
-    component: () => import("../views/Saved.vue"),
+    path: "/favourite",
+    name: "Favourite",
+    component: () => import("../views/Favourite.vue"),
   },
   {
     path: "/menu",
     name: "Menu",
     component: () => import("../views/Menu.vue"),
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: () => import("../components/Search.vue"),
   },
 ];
 
