@@ -1,31 +1,70 @@
 <template>
-  <section class="city-list">
-    <div class="card">
-      <p class="card_temparture">18</p>
-      <p class="card_name">Austin</p>
-      <p class="card_country">USA</p>
-      <div class="card_particularity">
-        <span class="humidity">13%</span>
-        <span class="wind-speed">9 km/h</span>
-      </div>
+  <div class="card" @mouseover="hover = true" @mouseleave="hover = false">
+    <button
+      v-if="hover"
+      class="card__delete"
+      type="button"
+      @click.stop="onDeleteClick"
+    >
+      &#215;
+    </button>
+    <p class="card_temparture">
+      {{ item.hourArr[0].main.temp.toFixed() - 273 }}
+    </p>
+    <p class="card_name">{{ item.name }}</p>
+    <p class="card_country">{{ item.country }}</p>
+    <div class="card_particularity">
+      <span class="humidity">{{ item.hourArr[0].main.humidity }}%</span>
+      <span class="wind-speed"
+        >{{ item.hourArr[0].wind.speed.toFixed() }} m/s</span
+      >
     </div>
-  </section>
+  </div>
 </template>
 
-<script lang="ts">
+<script>
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
   name: "Card",
+   props: {
+    item: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup(props) {
+    const store = useStore();
+    const router = useRouter();
+    const hover = window.innerWidth >= 414 ? ref(false) : ref(true);
+    const computedWeatherArr = computed(() => {
+      return store.getters["list/getWeatherArr"];
+    });
+
+    function onDeleteClick() {
+      store.dispatch("list/deleteCity", props.item.id);
+    }
+
+    function onMainItemClick() {
+      router.push({
+        name: "City",
+        params: { id: props.item.name.toLowerCase() },
+      });
+    }
+    return {
+      hover,
+      computedWeatherArr,
+      onDeleteClick,
+      onMainItemClick,
+    };
+  },
 };
 </script>
 
-<style scoped>
-.city-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
+<style scoped lang="scss">
 .card {
   box-sizing: border-box;
   padding: 10px;
@@ -35,44 +74,68 @@ export default {
   border-radius: 15px;
   color: #f0f2f3;
   margin-top: 25px;
-}
-
-.card_temparture {
-  width: fit-content;
-  font-size: 50px;
-  line-height: 50px;
-  margin-bottom: 10px;
   position: relative;
-}
 
-.card_temparture::before {
-  content: "";
-  position: absolute;
-  width: 12px;
-  height: 13px;
-  right: -12px;
-  top: 0;
-  background-image: url(../assets/svg/circle.svg);
-  background-repeat: no-repeat;
-  background-position: 0 0px;
-}
+  &:hover {
+    background: #566b79;
+  }
 
-.card_name {
-  font-size: 14px;
-  line-height: 24px;
-}
+  &__delete {
+    outline: none;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid #424949;
+    background-color: #f2f3f4;
+    font-weight: bold;
 
-.card_country {
-  font-size: 12px;
-  color: #f0f2f3;
-  opacity: 50%;
-  margin-bottom: 8px;
-}
+    &:hover,
+    &:focus {
+      background-color: #d0d3d4;
+    }
+  }
 
-.card_particularity {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
+  &_temparture {
+    width: fit-content;
+    font-size: 50px;
+    line-height: 50px;
+    margin-bottom: 10px;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 13px;
+      right: -12px;
+      top: 0;
+      background-image: url(../assets/svg/circle.svg);
+      background-repeat: no-repeat;
+      background-position: 0 0px;
+    }
+  }
+
+  &_name {
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  &_country {
+    font-size: 12px;
+    color: #f0f2f3;
+    opacity: 50%;
+    margin-bottom: 8px;
+  }
+
+  &_particularity {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+  }
 }
 
 .humidity,

@@ -13,6 +13,7 @@ const mutations = {
     state.weatherArr.push({
       id: Date.now(),
       name: weather.city.name,
+      country: weather.city.country,
       hourArr: weather.list,
     });
   },

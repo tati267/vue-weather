@@ -70,7 +70,7 @@
 
 .app {
   width: 414px;
-  height: 736px;
+  min-height: 736px;
   margin: 0 auto;
   background: #1c2831;
   font-family: "Roboto", Arial, sans-serif;

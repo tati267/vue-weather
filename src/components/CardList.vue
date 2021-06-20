@@ -1,5 +1,11 @@
 <template>
-  <Card v-for="(item, index) in computedWeatherArr" :key="index" :item="item" />
+  <section class="city-list">
+    <Card
+      v-for="(item, index) in computedWeatherArr"
+      :key="index"
+      :item="item"
+    />
+  </section>
 </template>
 
 <script lang="ts">
@@ -23,3 +29,12 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.city-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+</style>
