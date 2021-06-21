@@ -3,6 +3,6 @@ import list from "./modules/list.js";
 
 export default createStore({
   modules: {
-    list
-  }
+    list,
+  },
 });

@@ -8,6 +8,14 @@
     >
       &#215;
     </button>
+
+    <div class="img-container">
+      <img
+        v-bind:src="weatherIconURL(item.hourArr[0].weather[0].main)"
+        v-bind:alt="item.hourArr[0].weather[0].main"
+      />
+    </div>
+
     <p class="card_temparture">
       {{ item.hourArr[0].main.temp.toFixed() - 273 }}
     </p>
@@ -29,7 +37,8 @@ import { useRouter } from "vue-router";
 
 export default {
   name: "Card",
-   props: {
+
+  props: {
     item: {
       type: Object,
       required: true,
@@ -54,11 +63,59 @@ export default {
         params: { id: props.item.name.toLowerCase() },
       });
     }
+
+    function weatherIconURL() {
+      if (
+        props.item.hourArr[0].weather[0].icon == "50d" ||
+        props.item.hourArr[0].weather[0].icon == "50n"
+      ) {
+        return require("../assets/simple/Mist.png");
+      } else if (
+        props.item.hourArr[0].weather[0].icon == "13d" ||
+        props.item.hourArr[0].weather[0].icon == "13n"
+      ) {
+        return require("../assets/simple/Snow.png");
+      } else if (
+        props.item.hourArr[0].weather[0].icon == "11d" ||
+        props.item.hourArr[0].weather[0].icon == "11n"
+      ) {
+        return require("../assets/simple/Thunderstorm.png");
+      } else if (props.item.hourArr[0].weather[0].icon == "10d") {
+        return require("../assets/simple/RainD.png");
+      } else if (props.item.hourArr[0].weather[0].icon == "10n") {
+        return require("../assets/simple/RainN.png");
+      } else if (
+        props.item.hourArr[0].weather[0].icon == "09d" ||
+        props.item.hourArr[0].weather[0].icon == "09n"
+      ) {
+        return require("../assets/simple/Shower rain.png");
+      } else if (
+        props.item.hourArr[0].weather[0].icon == "04d" ||
+        props.item.hourArr[0].weather[0].icon == "04n"
+      ) {
+        return require("../assets/simple/Broken clouds.png");
+      } else if (
+        props.item.hourArr[0].weather[0].icon == "03d" ||
+        props.item.hourArr[0].weather[0].icon == "03n"
+      ) {
+        return require("../assets/simple/Scattered clouds.png");
+      } else if (props.item.hourArr[0].weather[0].icon == "02d") {
+        return require("../assets/simple/Few cloudsD.png");
+      } else if (props.item.hourArr[0].weather[0].icon == "02n") {
+        return require("../assets/simple/Few cloudsN.png");
+      } else if (props.item.hourArr[0].weather[0].icon == "01d") {
+        return require("../assets/simple/Clear skyD.png");
+      } else if (props.item.hourArr[0].weather[0].icon == "01n") {
+        return require("../assets/simple/Clear skyD.png");
+      }
+    }
+
     return {
       hover,
       computedWeatherArr,
       onDeleteClick,
       onMainItemClick,
+      weatherIconURL,
     };
   },
 };
@@ -81,6 +138,7 @@ export default {
   }
 
   &__delete {
+    z-index: 3;
     outline: none;
     position: absolute;
     right: 15px;
@@ -100,6 +158,7 @@ export default {
   }
 
   &_temparture {
+    z-index: 2;
     width: fit-content;
     font-size: 50px;
     line-height: 50px;
@@ -120,11 +179,13 @@ export default {
   }
 
   &_name {
+    z-index: 2;
     font-size: 14px;
     line-height: 24px;
   }
 
   &_country {
+    z-index: 2;
     font-size: 12px;
     color: #f0f2f3;
     opacity: 50%;
@@ -136,6 +197,15 @@ export default {
     justify-content: space-between;
     font-size: 14px;
   }
+}
+
+.img-container {
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  right: -7px;
+  top: -5px;
+  z-index: 1;
 }
 
 .humidity,
