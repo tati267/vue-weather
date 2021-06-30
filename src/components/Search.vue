@@ -6,8 +6,6 @@
       placeholder="Search"
       @keydown.enter="onInputEnter"
     />
-
-    <p>{{ mes }}</p>
   </section>
 </template>
 
@@ -47,7 +45,8 @@ export default {
 }
 
 .search-bar::placeholder {
-  color: #f0f2f3;
+  color: #dbdcdd;
+  font-size: 16px;
   letter-spacing: 1.25px;
 }
 </style>

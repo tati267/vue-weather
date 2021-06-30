@@ -8,6 +8,21 @@ const getters = {
   },
 };
 
+const actions = {
+  async addCity({ commit }, cityName) {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=cdcda073929ad4634bac408dbaeebb54`
+    );
+    const weather = await response.json();
+    console.log(weather);
+    commit("addCity", weather);
+  },
+
+  deleteCity({ commit }, id) {
+    commit("deleteCity", id);
+  },
+};
+
 const mutations = {
   addCity(state, weather) {
     state.weatherArr.push({
@@ -25,25 +40,10 @@ const mutations = {
   },
 };
 
-const actions = {
-  async addCity({ commit }, cityName) {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=cdcda073929ad4634bac408dbaeebb54`
-    );
-    const weather = await response.json();
-    console.log(weather);
-    commit("addCity", weather);
-  },
-
-  deleteCity({ commit }, id) {
-    commit("deleteCity", id);
-  },
-};
-
 export default {
   namespaced: true,
   state,
   getters,
-  mutations,
   actions,
+  mutations,
 };

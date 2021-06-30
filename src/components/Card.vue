@@ -106,7 +106,7 @@ export default {
       } else if (props.item.hourArr[0].weather[0].icon == "01d") {
         return require("../assets/simple/Clear skyD.png");
       } else if (props.item.hourArr[0].weather[0].icon == "01n") {
-        return require("../assets/simple/Clear skyD.png");
+        return require("../assets/simple/Clear skyN.png");
       }
     }
 
@@ -187,7 +187,7 @@ export default {
   &_country {
     z-index: 2;
     font-size: 12px;
-    color: #f0f2f3;
+    color: #a0a0a0;
     opacity: 50%;
     margin-bottom: 8px;
   }

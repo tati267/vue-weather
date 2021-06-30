@@ -1,5 +1,28 @@
 <template>
-  <div class="about">
-    <h1>This is an menu page</h1>
-  </div>
+  <main class="saved">
+    <Location />
+    <MenuWeather />
+    <Parametrs />
+  </main>
 </template>
+
+<script>
+import Location from "@/components/Location.vue";
+import MenuWeather from "@/components/MenuWeather.vue";
+import Parametrs from "@/components/Parametrs.vue";
+
+export default {
+  name: "Menu",
+  components: {
+    Location,
+    MenuWeather,
+    Parametrs,
+  },
+};
+</script>
+
+<style scoped>
+.saved {
+  padding-top: 36px;
+}
+</style>
