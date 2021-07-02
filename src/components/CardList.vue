@@ -1,7 +1,7 @@
 <template>
   <section class="city-list">
     <Card
-      v-for="(item, index) in computedWeatherArr"
+      v-for="(item, index) in computedCityArr"
       :key="index"
       :item="item"
     />
@@ -20,11 +20,11 @@ export default {
   },
   setup() {
     const store = useStore();
-    const computedWeatherArr = computed(() => {
-      return store.getters["list/getWeatherArr"];
+    const computedCityArr = computed(() => {
+      return store.getters["list/getCityArr"];
     });
     return {
-      computedWeatherArr,
+      computedCityArr,
     };
   },
 };

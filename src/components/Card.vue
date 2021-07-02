@@ -11,21 +11,19 @@
 
     <div class="img-container">
       <img
-        v-bind:src="weatherIconURL(item.hourArr[0].weather[0].main)"
-        v-bind:alt="item.hourArr[0].weather[0].main"
+        v-bind:src="weatherIconURL(item.icon)"
+        v-bind:alt="item.icon"
       />
     </div>
 
     <p class="card_temparture">
-      {{ item.hourArr[0].main.temp.toFixed() - 273 }}
+      {{ item.temp.toFixed() - 273 }}
     </p>
     <p class="card_name">{{ item.name }}</p>
     <p class="card_country">{{ item.country }}</p>
     <div class="card_particularity">
-      <span class="humidity">{{ item.hourArr[0].main.humidity }}%</span>
-      <span class="wind-speed"
-        >{{ item.hourArr[0].wind.speed.toFixed() }} m/s</span
-      >
+      <span class="humidity">{{ item.humidity }}%</span>
+      <span class="wind-speed">{{ item.wind.toFixed() }} m/s</span>
     </div>
   </div>
 </template>
@@ -49,8 +47,8 @@ export default {
     const store = useStore();
     const router = useRouter();
     const hover = window.innerWidth >= 414 ? ref(false) : ref(true);
-    const computedWeatherArr = computed(() => {
-      return store.getters["list/getWeatherArr"];
+    const computedCityArr = computed(() => {
+      return store.getters["list/getCityArr"];
     });
 
     function onDeleteClick() {
@@ -66,56 +64,56 @@ export default {
 
     function weatherIconURL() {
       if (
-        props.item.hourArr[0].weather[0].icon == "50d" ||
-        props.item.hourArr[0].weather[0].icon == "50n"
+        props.item.icon == "50d" ||
+        props.item.icon == "50n"
       ) {
         return require("../assets/simple/Mist.png");
       } else if (
-        props.item.hourArr[0].weather[0].icon == "13d" ||
-        props.item.hourArr[0].weather[0].icon == "13n"
+        props.item.icon == "13d" ||
+        props.item.icon == "13n"
       ) {
         return require("../assets/simple/Snow.png");
       } else if (
-        props.item.hourArr[0].weather[0].icon == "11d" ||
-        props.item.hourArr[0].weather[0].icon == "11n"
+        props.item.icon == "11d" ||
+        props.item.icon == "11n"
       ) {
         return require("../assets/simple/Thunderstorm.png");
-      } else if (props.item.hourArr[0].weather[0].icon == "10d") {
+      } else if (props.item.icon == "10d") {
         return require("../assets/simple/RainD.png");
-      } else if (props.item.hourArr[0].weather[0].icon == "10n") {
+      } else if (props.item.icon == "10n") {
         return require("../assets/simple/RainN.png");
       } else if (
-        props.item.hourArr[0].weather[0].icon == "09d" ||
-        props.item.hourArr[0].weather[0].icon == "09n"
+        props.item.icon == "09d" ||
+        props.item.icon == "09n"
       ) {
         return require("../assets/simple/Shower rain.png");
       } else if (
-        props.item.hourArr[0].weather[0].icon == "04d" ||
-        props.item.hourArr[0].weather[0].icon == "04n"
+        props.item.icon == "04d" ||
+        props.item.icon == "04n"
       ) {
         return require("../assets/simple/Broken clouds.png");
       } else if (
-        props.item.hourArr[0].weather[0].icon == "03d" ||
-        props.item.hourArr[0].weather[0].icon == "03n"
+        props.item.icon == "03d" ||
+        props.item.icon == "03n"
       ) {
         return require("../assets/simple/Scattered clouds.png");
-      } else if (props.item.hourArr[0].weather[0].icon == "02d") {
+      } else if (props.item.icon == "02d") {
         return require("../assets/simple/Few cloudsD.png");
-      } else if (props.item.hourArr[0].weather[0].icon == "02n") {
+      } else if (props.item.icon == "02n") {
         return require("../assets/simple/Few cloudsN.png");
-      } else if (props.item.hourArr[0].weather[0].icon == "01d") {
+      } else if (props.item.icon == "01d") {
         return require("../assets/simple/Clear skyD.png");
-      } else if (props.item.hourArr[0].weather[0].icon == "01n") {
+      } else if (props.item.icon == "01n") {
         return require("../assets/simple/Clear skyN.png");
       }
     }
 
     return {
       hover,
-      computedWeatherArr,
+      computedCityArr,
       onDeleteClick,
       onMainItemClick,
-      weatherIconURL,
+      weatherIconURL
     };
   },
 };
