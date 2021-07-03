@@ -1,37 +1,56 @@
 <template>
   <section class="weather">
+    <p ref="l" class="weather_name">{{ info.locationCity }}</p>
     <div class="weather_img">
       <img />
     </div>
 
-    <p class="weather_description">Rainy</p>
+    <p class="weather_description">{{ info.description }}</p>
 
-    <p class="weather_temparture">19</p>
+    <p class="weather_temparture">{{ info.temp }}</p>
 
     <div class="weather_particularity">
-      <span class="humidity">22%</span>
-      <span class="wind-pressure">0.533 mBar</span>
-      <span class="wind-speed">1 m/s</span>
+      <span class="humidity">{{ info.humidity }}%</span>
+      <span class="wind-pressure">{{ info.pressure }} mBar</span>
+      <span class="wind-speed">{{ info.wind }} m/s</span>
     </div>
   </section>
 </template>
 
 <script>
+import { computed } from "vue";
 import { useStore } from "vuex";
+import { ref } from "vue";
 
 export default {
   name: "MenuWeather",
 
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
+  },
+
   setup() {
+    const l = ref(null);
     const store = useStore();
-    function onInputEnter(cityName) {
-      if (cityName.target.value) {
-        store.dispatch("list/addCity", cityName.target.value);
-        cityName.target.value = "";
-      }
-    }
+    let info = {
+      locationCity: "Los Angeles",
+      description: "Mist",
+      temp: 19,
+      humidity: 20,
+      pressure: 0.552,
+      wind: 1,
+    };
+
+    const computedCity = computed(() => {
+      return store.getters["list/getCityArr"];
+    });
     return {
-      onInputEnter,
+      l,
+      info,
+      computedCity,
     };
   },
 };
@@ -40,6 +59,11 @@ export default {
 <style scoped lang="scss">
 .weather {
   text-align: center;
+
+  &_name {
+    text-align: center;
+  }
+
   &_img {
     align-items: center;
     margin-bottom: 5px;
