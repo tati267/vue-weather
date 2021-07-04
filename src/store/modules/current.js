@@ -24,7 +24,6 @@ const mutations = {
       condition: weather.weather[0].main,
     };
   },
-
 };
 
 const actions = {

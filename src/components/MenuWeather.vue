@@ -1,7 +1,7 @@
 <template>
   <section class="weather">
     <p class="weather_name">
-      {{ getCurrentCity.name }}
+      {{ getCurrentCity.name }} {{ getCurrentCity.country }}
     </p>
 
     <div class="weather_img">
@@ -17,7 +17,6 @@
       <span class="wind-pressure">{{ getCurrentCity.pressure }} mBar</span>
       <span class="wind-speed">{{ getCurrentCity.wind }} m/s</span>
     </div>
-    
   </section>
 </template>
 

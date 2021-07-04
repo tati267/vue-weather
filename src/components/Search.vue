@@ -18,10 +18,8 @@ export default {
   setup() {
     const store = useStore();
     function onInputEnter(cityName) {
-      const city=cityName.target.value.split(' ')[0]
-      console.log(city)
       if (cityName.target.value) {
-        store.dispatch("list/addCity", cityName.target.value.split(' ')[0], cityName.target.value.split(' ')[1]);
+        store.dispatch("list/addCity", cityName.target.value);
         cityName.target.value = "";
       }
     }

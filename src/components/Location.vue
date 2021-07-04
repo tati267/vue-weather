@@ -50,7 +50,8 @@ export default {
             console.log(response.data.error_message);
           } else {
             const cityName =
-              response.data.results[0].address_components[2].long_name
+              `${response.data.results[0].address_components[2].long_name},
+              ${response.data.results[0].address_components[5].short_name}`
 
             store.dispatch("current/getCity", cityName);
           }
