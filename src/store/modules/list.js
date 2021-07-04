@@ -2,27 +2,6 @@ const state = {
   cityArr: [],
 };
 
-const getters = {
-  getCityArr(state) {
-    return state.cityArr;
-  },
-};
-
-const actions = {
-  async addCity({ commit }, cityName) {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=cdcda073929ad4634bac408dbaeebb54`
-    );
-    const weather = await response.json();
-    console.log(weather);
-    commit("addCity", weather);
-  },
-
-  deleteCity({ commit }, id) {
-    commit("deleteCity", id);
-  },
-};
-
 const mutations = {
   addCity(state, weather) {
     state.cityArr.push({
@@ -42,6 +21,32 @@ const mutations = {
     state.cityArr = state.cityArr.filter((el) => {
       return el.id !== id;
     });
+  },
+};
+
+const actions = {
+  async addCity({ commit }, city, country) {
+    await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=cdcda073929ad4634bac408dbaeebb54`
+    )
+      .then((response) => {
+        const weather = response.json();
+        console.log(weather);
+        commit("addCity", weather);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  },
+
+  deleteCity({ commit }, id) {
+    commit("deleteCity", id);
+  },
+};
+
+const getters = {
+  getCityArr(state) {
+    return state.cityArr;
   },
 };
 

@@ -8,51 +8,17 @@
       Your Location Now
     </button>
   </section>
-
-  <section class="weather">
-    <p ref="a" class="weather_name">{{ info.locationCity }}</p>
-    <div class="weather_img">
-      <img />
-    </div>
-
-    <p ref="b" class="weather_description">{{ info.description }}</p>
-
-    <p ref="c" class="weather_temparture">{{ info.temp }}</p>
-
-    <div class="weather_particularity">
-      <span ref="d" class="humidity">{{ info.humidity }}%</span>
-      <span ref="e" class="wind-pressure">{{ info.pressure }} mBar</span>
-      <span ref="f" class="wind-speed">{{ info.wind }} m/s</span>
-    </div>
-  </section>
 </template>
 
 <script>
 import axios from "axios";
 import { useStore } from "vuex";
-import { ref } from "vue";
 
 export default {
   name: "Location",
 
   setup() {
-    const a = ref(null);
-    const b = ref(null);
-    const c = ref(null);
-    const d = ref(null);
-    const e = ref(null);
-    const f = ref(null);
-
     const store = useStore();
-
-    let info = {
-      locationCity: "Los Angeles",
-      description: "Mist",
-      temp: 19,
-      humidity: 20,
-      pressure: 0.552,
-      wind: 1,
-    };
 
     function locatorButtonPressed() {
       if (navigator.geolocation) {
@@ -83,9 +49,10 @@ export default {
           if (response.data.error_message) {
             console.log(response.data.error_message);
           } else {
-            a.value.textContent =
-              response.data.results[0].address_components[2].long_name;
-            store.dispatch("list/addCity", a.value.textContent);
+            const cityName =
+              response.data.results[0].address_components[2].long_name
+
+            store.dispatch("current/getCity", cityName);
           }
         })
         .catch((error) => {
@@ -94,15 +61,8 @@ export default {
     }
 
     return {
-      info,
       locatorButtonPressed,
       getAddress,
-      a,
-      b,
-      c,
-      d,
-      e,
-      f,
     };
   },
 };

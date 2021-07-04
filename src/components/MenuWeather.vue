@@ -1,56 +1,42 @@
 <template>
   <section class="weather">
-    <p ref="l" class="weather_name">{{ info.locationCity }}</p>
+    <p class="weather_name">
+      {{ getCurrentCity.name }}
+    </p>
+
     <div class="weather_img">
       <img />
     </div>
 
-    <p class="weather_description">{{ info.description }}</p>
+    <p class="weather_description">{{ getCurrentCity.condition }}</p>
 
-    <p class="weather_temparture">{{ info.temp }}</p>
+    <p class="weather_temparture">{{ getCurrentCity.temp.toFixed() - 273 }}</p>
 
     <div class="weather_particularity">
-      <span class="humidity">{{ info.humidity }}%</span>
-      <span class="wind-pressure">{{ info.pressure }} mBar</span>
-      <span class="wind-speed">{{ info.wind }} m/s</span>
+      <span class="humidity">{{ getCurrentCity.humidity }}%</span>
+      <span class="wind-pressure">{{ getCurrentCity.pressure }} mBar</span>
+      <span class="wind-speed">{{ getCurrentCity.wind }} m/s</span>
     </div>
+    
   </section>
 </template>
 
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
-import { ref } from "vue";
 
 export default {
   name: "MenuWeather",
 
-  props: {
-    item: {
-      type: Object,
-      required: true,
-    },
-  },
-
   setup() {
-    const l = ref(null);
     const store = useStore();
-    let info = {
-      locationCity: "Los Angeles",
-      description: "Mist",
-      temp: 19,
-      humidity: 20,
-      pressure: 0.552,
-      wind: 1,
-    };
 
-    const computedCity = computed(() => {
-      return store.getters["list/getCityArr"];
+    const getCurrentCity = computed(() => {
+      return store.getters["current/getCurrentCity"];
     });
+
     return {
-      l,
-      info,
-      computedCity,
+      getCurrentCity,
     };
   },
 };
@@ -152,7 +138,7 @@ export default {
   position: absolute;
   width: 16px;
   height: 19px;
-  left: 45px;
+  left: 25px;
   top: 0;
   background-image: url(../assets/svg/wind.svg);
   background-repeat: no-repeat;
