@@ -1,6 +1,6 @@
 <template>
   <section class="weather">
-    <p class="weather_name">
+    <p class="weather_city">
       {{ getCurrentCity.name }} {{ getCurrentCity.country }}
     </p>
 
@@ -8,14 +8,13 @@
       <img />
     </div>
 
-    <p class="weather_description">{{ getCurrentCity.condition }}</p>
-
     <p class="weather_temparture">{{ getCurrentCity.temp.toFixed() - 273 }}</p>
+    <p class="weather_description">{{ getCurrentCity.condition }}</p>
 
     <div class="weather_particularity">
       <span class="humidity">{{ getCurrentCity.humidity }}%</span>
       <span class="wind-pressure">{{ getCurrentCity.pressure }} mBar</span>
-      <span class="wind-speed">{{ getCurrentCity.wind }} m/s</span>
+      <span class="wind-speed">{{ getCurrentCity.wind.toFixed() }} m/s</span>
     </div>
   </section>
 </template>
@@ -43,10 +42,11 @@ export default {
 
 <style scoped lang="scss">
 .weather {
-  text-align: center;
+  text-align: left;
 
-  &_name {
-    text-align: center;
+  &_city {
+    text-align: left;
+    font-size: 20px;
   }
 
   &_img {
@@ -55,7 +55,6 @@ export default {
   }
 
   &_description {
-    margin: 0 auto;
     padding-top: 4px;
     width: 200px;
     height: 26px;
@@ -65,16 +64,15 @@ export default {
     background-color: #363361;
     border-radius: 15px;
     font: 400 18px Roboto;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
   }
 
   &_temparture {
     width: fit-content;
     font-size: 80px;
     line-height: 80px;
-    margin: 0 auto;
     position: relative;
-    margin-bottom: 24px;
+    margin-bottom: 40px;
 
     &::before {
       content: "";
@@ -92,8 +90,12 @@ export default {
   &_particularity {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
   }
+}
+.humidity {
+  text-align: center;
 }
 
 .humidity,
@@ -125,7 +127,7 @@ export default {
   position: absolute;
   width: 13px;
   height: 24px;
-  left: 5px;
+  left: 15px;
   top: 0;
   background-image: url(../assets/svg/cold.svg);
   background-repeat: no-repeat;
@@ -137,7 +139,7 @@ export default {
   position: absolute;
   width: 16px;
   height: 19px;
-  left: 25px;
+  left: 50px;
   top: 0;
   background-image: url(../assets/svg/wind.svg);
   background-repeat: no-repeat;

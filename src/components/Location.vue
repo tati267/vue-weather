@@ -79,7 +79,7 @@ export default {
     width: 100%;
     font: 400 16px Roboto;
     color: aliceblue;
-    margin-bottom: 10px;
+    margin: 20px 0;
   }
 
   &_name {

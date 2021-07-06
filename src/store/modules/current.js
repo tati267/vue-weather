@@ -4,6 +4,8 @@ const state = {
     temp: 290,
     humidity: 20,
     pressure: 0.552,
+    sunrise: "08:00",
+    sunset: "18:00",
     wind: 1,
     icon: "10d",
     condition: "Cloudy",
@@ -16,6 +18,8 @@ const mutations = {
       name: weather.name,
       country: weather.sys.country,
       temp: weather.main.temp,
+      sunrise: locateTime(weather.sys.sunrise),
+      sunset: locateTime(weather.sys.sunset),
       clouds: weather.clouds.all,
       humidity: weather.main.humidity,
       pressure: weather.main.pressure,
@@ -24,6 +28,14 @@ const mutations = {
       condition: weather.weather[0].main,
     };
   },
+};
+
+const locateTime = (timestamp) => {
+  const date = new Date(timestamp * 1000);
+  const hours = date.getHours();
+  const minutes = "0" + date.getMinutes();
+  const formattedTime = hours + ":" + minutes.substr(-2);
+  return formattedTime;
 };
 
 const actions = {
