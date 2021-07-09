@@ -3,6 +3,7 @@
     <Location />
     <MenuWeather />
     <Sun />
+    <ForecastDay />
   </main>
 </template>
 
@@ -10,14 +11,15 @@
 import Location from "@/components/Location.vue";
 import MenuWeather from "@/components/MenuWeather.vue";
 import Sun from "@/components/Sun.vue";
-
+import ForecastDay from "@/components/ForecastDay.vue";
 
 export default {
   name: "Home",
   components: {
     Location,
     MenuWeather,
-  Sun
+    Sun,
+    ForecastDay,
   },
 };
 </script>

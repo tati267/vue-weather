@@ -9,23 +9,75 @@ const state = {
     wind: 1,
     icon: "10d",
     condition: "Cloudy",
+    hourlyWeather: {
+      0: {
+        temp: 290,
+        time: "18:00",
+      },
+      1: {
+        temp: 300,
+        time: "18:00",
+      },
+      2: {
+        temp: 310,
+        time: "18:00",
+      },
+      3: {
+        temp: 300,
+        time: "18:00",
+      },
+      4: {
+        temp: 290,
+        time: "18:00",
+      },
+      5: {
+        temp: 290,
+        time: "18:00",
+      },
+    },
   },
 };
 
 const mutations = {
   getCity(state, weather) {
     state.cityCurrent = {
-      name: weather.name,
-      country: weather.sys.country,
-      temp: weather.main.temp,
-      sunrise: locateTime(weather.sys.sunrise),
-      sunset: locateTime(weather.sys.sunset),
-      clouds: weather.clouds.all,
-      humidity: weather.main.humidity,
-      pressure: weather.main.pressure,
-      wind: weather.wind.speed,
-      icon: weather.weather[0].icon,
-      condition: weather.weather[0].main,
+      name: weather.city.name,
+      country: weather.city.country,
+      temp: weather.list[0].main.temp,
+      sunrise: locateTime(weather.city.sunrise),
+      sunset: locateTime(weather.city.sunset),
+      clouds: weather.list[0].clouds.all,
+      humidity: weather.list[0].main.humidity,
+      pressure: weather.list[0].main.pressure,
+      wind: weather.list[0].wind.speed,
+      icon: weather.list[0].weather[0].icon,
+      condition: weather.list[0].weather[0].main,
+      hourlyWeather: {
+        5: {
+          temp: weather.list[0].main.temp,
+          time: convertTime(weather.list[0].dt),
+        },
+        4: {
+          temp: weather.list[1].main.temp,
+          time: convertTime(weather.list[1].dt),
+        },
+        3: {
+          temp: weather.list[2].main.temp,
+          time: convertTime(weather.list[2].dt),
+        },
+        2: {
+          temp: weather.list[3].main.temp,
+          time: convertTime(weather.list[3].dt),
+        },
+        1: {
+          temp: weather.list[4].main.temp,
+          time: convertTime(weather.list[4].dt),
+        },
+        0: {
+          temp: weather.list[5].main.temp,
+          time: convertTime(weather.list[5].dt),
+        },
+      },
     };
   },
 };
@@ -38,10 +90,16 @@ const locateTime = (timestamp) => {
   return formattedTime;
 };
 
+const convertTime = (utc) => {
+  const date = new Date(utc * 1000);
+  const timestr = date.toLocaleTimeString();
+  return timestr;
+};
+
 const actions = {
   async getCity({ commit }, city) {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=cdcda073929ad4634bac408dbaeebb54`
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=cdcda073929ad4634bac408dbaeebb54`
     );
     const weather = await response.json();
     console.log(weather);
@@ -52,6 +110,10 @@ const actions = {
 const getters = {
   getCurrentCity(state) {
     return state.cityCurrent;
+  },
+
+  getCurrentCityHourly(state) {
+    return state.cityCurrent.hourlyWeather;
   },
 };
 
