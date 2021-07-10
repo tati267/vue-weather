@@ -12,26 +12,32 @@ const state = {
     hourlyWeather: {
       0: {
         temp: 290,
+        icon: "01d",
         time: "18:00",
       },
       1: {
         temp: 300,
+        icon: "04d",
         time: "18:00",
       },
       2: {
         temp: 310,
+        icon: "50d",
         time: "18:00",
       },
       3: {
         temp: 300,
+        icon: "04d",
         time: "18:00",
       },
       4: {
         temp: 290,
+        icon: "03d",
         time: "18:00",
       },
       5: {
         temp: 290,
+        icon: "01d",
         time: "18:00",
       },
     },
@@ -56,25 +62,31 @@ const mutations = {
         5: {
           temp: weather.list[0].main.temp,
           time: convertTime(weather.list[0].dt),
+          icon: weather.list[0].weather[0].icon,
         },
         4: {
           temp: weather.list[1].main.temp,
+          icon: weather.list[1].weather[0].icon,
           time: convertTime(weather.list[1].dt),
         },
         3: {
           temp: weather.list[2].main.temp,
+          icon: weather.list[2].weather[0].icon,
           time: convertTime(weather.list[2].dt),
         },
         2: {
           temp: weather.list[3].main.temp,
+          icon: weather.list[3].weather[0].icon,
           time: convertTime(weather.list[3].dt),
         },
         1: {
           temp: weather.list[4].main.temp,
+          icon: weather.list[4].weather[0].icon,
           time: convertTime(weather.list[4].dt),
         },
         0: {
           temp: weather.list[5].main.temp,
+          icon: weather.list[5].weather[0].icon,
           time: convertTime(weather.list[5].dt),
         },
       },

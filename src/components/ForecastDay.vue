@@ -3,7 +3,8 @@
     <slide v-for="slide in getCurrentCityHourly" :key="slide">
       <div class="slide">
         <p class="slide">{{ slide.time }}</p>
-        <p class="slide">{{ (slide.temp-273).toFixed() }}</p>
+        <img v-bind:src="weatherIconURL(slide.icon)" v-bind:alt="slide.icon" />
+        <p class="slide">{{ (slide.temp - 273).toFixed() }}</p>
       </div>
     </slide>
 
@@ -36,8 +37,37 @@ export default {
       return store.getters["current/getCurrentCityHourly"];
     });
 
+    function weatherIconURL(icon) {
+      if (icon == "50d" || icon == "50n") {
+        return require("../assets/simple/Mist.png");
+      } else if (icon == "13d" || icon == "13n") {
+        return require("../assets/simple/Snow.png");
+      } else if (icon == "11d" || icon == "11n") {
+        return require("../assets/simple/Thunderstorm.png");
+      } else if (icon == "10d") {
+        return require("../assets/simple/RainD.png");
+      } else if (icon == "10n") {
+        return require("../assets/simple/RainN.png");
+      } else if (icon == "09d" || icon == "09n") {
+        return require("../assets/simple/Shower rain.png");
+      } else if (icon == "04d" || icon == "04n") {
+        return require("../assets/simple/Broken clouds.png");
+      } else if (icon == "03d" || icon == "03n") {
+        return require("../assets/simple/Scattered clouds.png");
+      } else if (icon == "02d") {
+        return require("../assets/simple/Few cloudsD.png");
+      } else if (icon == "02n") {
+        return require("../assets/simple/Few cloudsN.png");
+      } else if (icon == "01d") {
+        return require("../assets/simple/Clear skyD.png");
+      } else if (icon == "01n") {
+        return require("../assets/simple/Clear skyN.png");
+      }
+    }
+
     return {
       getCurrentCityHourly,
+      weatherIconURL,
     };
   },
 };
