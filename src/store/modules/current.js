@@ -7,8 +7,8 @@ const state = {
     sunrise: "08:00",
     sunset: "18:00",
     wind: 1,
-    icon: "10d",
-    condition: "Cloudy",
+    icon: "11n",
+    condition: "Clear",
     hourlyWeather: {
       0: {
         temp: 290,
@@ -104,7 +104,7 @@ const locateTime = (timestamp) => {
 
 const convertTime = (utc) => {
   const date = new Date(utc * 1000);
-  const timestr = date.toLocaleTimeString();
+  const timestr = date.toLocaleTimeString().slice(0, 5);
   return timestr;
 };
 

@@ -20,11 +20,11 @@ export default {
   setup() {
     const store = useStore();
 
-    function locatorButtonPressed() {
+    const locatorButtonPressed = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            return this.getAddress(
+            return getAddress(
               position.coords.latitude,
               position.coords.longitude
             );
@@ -34,32 +34,26 @@ export default {
           }
         );
       }
-    }
+    };
 
-    function getAddress(lat, long) {
+    const getAddress = (lat, long) => {
       axios
         .get(
-          "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
-            lat +
-            "," +
-            long +
-            "&key=AIzaSyDX0eGQLzi7XBvZj2O6KkWpfkUbhXErpm4"
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyDX0eGQLzi7XBvZj2O6KkWpfkUbhXErpm4`
         )
-        .then(function (response) {
+        .then((response) => {
           if (response.data.error_message) {
             console.log(response.data.error_message);
           } else {
-            const cityName =
-              `${response.data.results[0].address_components[2].long_name},
-              ${response.data.results[0].address_components[5].short_name}`
-
+            const cityName = `${response.data.results[0].address_components[2].long_name},
+              ${response.data.results[0].address_components[5].short_name}`;
             store.dispatch("current/getCity", cityName);
           }
         })
         .catch((error) => {
           console.log(error.message);
         });
-    }
+    };
 
     return {
       locatorButtonPressed,
@@ -71,6 +65,9 @@ export default {
 
 <style scoped lang="scss">
 .location {
+  margin-bottom: 20px;
+  z-index: 5px;
+
   &_btn {
     background: #13232e;
     border-color: aliceblue;
@@ -79,7 +76,6 @@ export default {
     width: 100%;
     font: 400 16px Roboto;
     color: aliceblue;
-    margin: 20px 0;
   }
 
   &_name {

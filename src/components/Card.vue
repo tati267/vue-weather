@@ -10,10 +10,7 @@
     </button>
 
     <div class="img-container">
-      <img
-        v-bind:src="weatherIconURL(item.icon)"
-        v-bind:alt="item.icon"
-      />
+      <img v-bind:src="weatherIconURL(item.icon)" v-bind:alt="item.icon" />
     </div>
 
     <p class="card_temparture">
@@ -51,51 +48,33 @@ export default {
       return store.getters["list/getCityArr"];
     });
 
-    function onDeleteClick() {
+    const onDeleteClick = () => {
       store.dispatch("list/deleteCity", props.item.id);
-    }
+    };
 
-    function onMainItemClick() {
+    const onMainItemClick = () => {
       router.push({
         name: "City",
         params: { id: props.item.name.toLowerCase() },
       });
-    }
+    };
 
-    function weatherIconURL() {
-      if (
-        props.item.icon == "50d" ||
-        props.item.icon == "50n"
-      ) {
+    const weatherIconURL = () => {
+      if (props.item.icon == "50d" || props.item.icon == "50n") {
         return require("../assets/simple/Mist.png");
-      } else if (
-        props.item.icon == "13d" ||
-        props.item.icon == "13n"
-      ) {
+      } else if (props.item.icon == "13d" || props.item.icon == "13n") {
         return require("../assets/simple/Snow.png");
-      } else if (
-        props.item.icon == "11d" ||
-        props.item.icon == "11n"
-      ) {
+      } else if (props.item.icon == "11d" || props.item.icon == "11n") {
         return require("../assets/simple/Thunderstorm.png");
       } else if (props.item.icon == "10d") {
         return require("../assets/simple/RainD.png");
       } else if (props.item.icon == "10n") {
         return require("../assets/simple/RainN.png");
-      } else if (
-        props.item.icon == "09d" ||
-        props.item.icon == "09n"
-      ) {
+      } else if (props.item.icon == "09d" || props.item.icon == "09n") {
         return require("../assets/simple/Shower rain.png");
-      } else if (
-        props.item.icon == "04d" ||
-        props.item.icon == "04n"
-      ) {
+      } else if (props.item.icon == "04d" || props.item.icon == "04n") {
         return require("../assets/simple/Broken clouds.png");
-      } else if (
-        props.item.icon == "03d" ||
-        props.item.icon == "03n"
-      ) {
+      } else if (props.item.icon == "03d" || props.item.icon == "03n") {
         return require("../assets/simple/Scattered clouds.png");
       } else if (props.item.icon == "02d") {
         return require("../assets/simple/Few cloudsD.png");
@@ -106,14 +85,14 @@ export default {
       } else if (props.item.icon == "01n") {
         return require("../assets/simple/Clear skyN.png");
       }
-    }
+    };
 
     return {
       hover,
       computedCityArr,
       onDeleteClick,
       onMainItemClick,
-      weatherIconURL
+      weatherIconURL,
     };
   },
 };

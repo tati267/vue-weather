@@ -1,21 +1,21 @@
 <template>
   <main class="saved">
-    <Location />
-    <MenuWeather />
+    <Location class="location" />
+    <Hero class="hero"/>
     <Parametrs />
   </main>
 </template>
 
 <script>
 import Location from "@/components/Location.vue";
-import MenuWeather from "@/components/MenuWeather.vue";
+import Hero from "@/components/Hero.vue";
 import Parametrs from "@/components/Parametrs.vue";
 
 export default {
   name: "Menu",
   components: {
     Location,
-    MenuWeather,
+    Hero,
     Parametrs,
   },
 };
@@ -23,6 +23,16 @@ export default {
 
 <style scoped>
 .saved {
-  padding-top: 36px;
+  padding-top: 36px;;
+}
+
+.location {
+  position: relative;
+  z-index: 2;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
 }
 </style>

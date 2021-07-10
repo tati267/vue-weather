@@ -1,10 +1,15 @@
 <template>
   <carousel :items-to-show="3">
     <slide v-for="slide in getCurrentCityHourly" :key="slide">
-      <div class="slide">
-        <p class="slide">{{ slide.time }}</p>
-        <img v-bind:src="weatherIconURL(slide.icon)" v-bind:alt="slide.icon" />
-        <p class="slide">{{ (slide.temp - 273).toFixed() }}</p>
+      <div class="slide slide-container">
+        <p class="slide slide_time">{{ slide.time }}</p>
+        <div class="img-container">
+          <img
+            v-bind:src="weatherIconURL(slide.icon)"
+            v-bind:alt="slide.icon"
+          />
+        </div>
+        <p class="slide slide-temp">{{ (slide.temp - 273).toFixed() }}</p>
       </div>
     </slide>
 
@@ -37,7 +42,7 @@ export default {
       return store.getters["current/getCurrentCityHourly"];
     });
 
-    function weatherIconURL(icon) {
+    const weatherIconURL = (icon) => {
       if (icon == "50d" || icon == "50n") {
         return require("../assets/simple/Mist.png");
       } else if (icon == "13d" || icon == "13n") {
@@ -63,7 +68,7 @@ export default {
       } else if (icon == "01n") {
         return require("../assets/simple/Clear skyN.png");
       }
-    }
+    };
 
     return {
       getCurrentCityHourly,
@@ -72,3 +77,36 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.slide-container {
+  position: relative;
+}
+
+.slide_time {
+  margin-bottom: 65px;
+}
+
+.img-container {
+  position: absolute;
+  top: 0px;
+  left: -27px;
+}
+
+.slide-temp {
+    width: fit-content;
+    position: relative;
+    margin-left: 10px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 16px;
+      right: -16px;
+      background-image: url(../assets/circle_sm.png);
+      background-repeat: no-repeat;
+      background-position: 0 0px;
+    }
+}
+</style>

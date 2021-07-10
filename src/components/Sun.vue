@@ -33,7 +33,7 @@ export default {
   background-image: url(../assets/svg/line.svg);
   background-repeat: no-repeat;
   background-position: 2px 30px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 
   &_rise {
     position: absolute;
