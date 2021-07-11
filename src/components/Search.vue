@@ -17,12 +17,12 @@ export default {
 
   setup() {
     const store = useStore();
-    function onInputEnter(cityName) {
+    const onInputEnter = (cityName) => {
       if (cityName.target.value) {
         store.dispatch("list/addCity", cityName.target.value);
         cityName.target.value = "";
       }
-    }
+    };
     return {
       onInputEnter,
     };

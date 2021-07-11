@@ -23,7 +23,7 @@ export default {
 
 <style scoped>
 .saved {
-  padding-top: 36px;;
+  padding-top: 36px;
 }
 
 .location {

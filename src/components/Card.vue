@@ -1,5 +1,10 @@
 <template>
-  <div class="card" @mouseover="hover = true" @mouseleave="hover = false">
+  <div
+    @click="onCardClick(`${item.name},${item.country}`)"
+    class="card"
+    @mouseover="hover = true"
+    @mouseleave="hover = false"
+  >
     <button
       v-if="hover"
       class="card__delete"
@@ -44,9 +49,15 @@ export default {
     const store = useStore();
     const router = useRouter();
     const hover = window.innerWidth >= 414 ? ref(false) : ref(true);
+
     const computedCityArr = computed(() => {
       return store.getters["list/getCityArr"];
     });
+
+    const onCardClick = (city) => {
+      store.dispatch("current/getCity", city);
+      router.push({ name: "Home" });
+    };
 
     const onDeleteClick = () => {
       store.dispatch("list/deleteCity", props.item.id);
@@ -90,6 +101,7 @@ export default {
     return {
       hover,
       computedCityArr,
+      onCardClick,
       onDeleteClick,
       onMainItemClick,
       weatherIconURL,
